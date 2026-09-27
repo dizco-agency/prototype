@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Report Konten · Lean Lab</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1F2A44;--ink:#1d2433;--muted:#6b7385;--line:#e6e9f0;--bg:#f6f7fa;--orange:#F26B1D;--win:#1E7B34;--winbg:#E3F3E7;--med:#8A6100;--medbg:#FFF1CC;--bad:#C0392B;--badbg:#FBE0DD;--wait:#6B7385;--waitbg:#ECEEF2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.55}
+header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+header .brand{font-weight:700;letter-spacing:.18em;font-size:11px;opacity:.75}
+header h1{margin:2px 0 0;font-size:18px;font-weight:600}
+header a{color:#cfd4e0;font-size:13px;text-decoration:none}header a:hover{color:#fff}
+.dummy{background:#FFF1CC;color:#6b5a12;font-size:13px;text-align:center;padding:8px}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:6px;padding:10px 20px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:0 0 auto;border:1px solid var(--line);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--navy);border-color:var(--navy)}
+main{max-width:1040px;margin:0 auto;padding:22px 16px 80px}
+section{margin-bottom:34px;scroll-margin-top:60px}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-size:24px;line-height:1.25;margin:4px 0 6px;color:var(--navy)}
+.sub{color:var(--muted);margin:0 0 16px;max-width:720px}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.asof{font-size:13px;color:var(--muted)}
+.sheet{background:var(--orange);color:#fff;text-decoration:none;font-weight:700;font-size:14px;border-radius:99px;padding:10px 18px}
+.sheet:hover{background:#d95a12}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.tile .l{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tile .v{font-size:30px;font-weight:700;color:var(--navy);line-height:1.2;margin-top:4px}
+.tile .s{font-size:13px;color:var(--muted)}
+.stack{display:flex;height:34px;border-radius:10px;overflow:hidden;margin-top:14px}
+.stack div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.st{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 10px;white-space:nowrap}
+.st.Winning{background:var(--winbg);color:var(--win)}.st.Mediocre{background:var(--medbg);color:var(--med)}.st.Bad{background:var(--badbg);color:var(--bad)}.st.Menunggu{background:var(--waitbg);color:var(--wait)}
+.briefs{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.bf{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+.code{background:var(--navy);color:#fff;font-weight:700;font-size:12px;border-radius:7px;padding:4px 8px}
+.bf .t{font-weight:600;color:var(--navy);font-size:14px}.bf .m{font-size:12px;color:var(--muted)}
+.bf .bar{grid-column:1/-1;height:7px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}.bf .bar i{display:block;height:100%;background:var(--navy)}
+.bf .f{grid-column:1/-1;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.funnel .r{display:grid;grid-template-columns:60px 1fr 120px;gap:12px;align-items:center;margin:10px 0;font-size:14px}
+.funnel .tr{height:26px;background:var(--bg);border-radius:7px;position:relative}
+.funnel .fi{height:100%;border-radius:7px;background:#9aa6c0}
+.funnel .tg{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--orange);border-radius:2px}
+.funnel .val{text-align:right;font-weight:600}.funnel .off{color:var(--bad)}
+.dims{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.dim h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dr{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr 64px;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.dr .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dr .tr{height:18px;background:var(--bg);border-radius:5px}.dr .fi{height:100%;border-radius:5px;background:#c9ced8}
+.dr.hi .fi{background:var(--win)}.dr .p{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.dr .p small{color:var(--muted);font-weight:500}
+.wins{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.win h4{margin:8px 0 4px;font-size:15px;color:var(--navy)}
+.win .q{font-size:14px;background:#FFF7EE;border-left:4px solid var(--orange);border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0}
+.win .k{display:flex;justify-content:space-between;font-size:13px;margin:4px 0}
+.win .k b{color:var(--win)}
+.win .why{font-size:13px;color:var(--muted);margin:8px 0 0}
+.win a{font-size:13px;font-weight:600;color:var(--orange);text-decoration:none}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;align-items:center}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 12px;font:inherit;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer}
+.filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.filters select{font:inherit;font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:99px;background:#fff;color:var(--ink)}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:16px}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:13px}
+th{background:var(--navy);color:#fff;text-align:left;padding:10px;font-weight:600;font-size:12px}
+td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ins{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.ins ul{margin:0;padding-left:18px}.ins li{margin:6px 0;font-size:14px}
+.ins h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+@media(max-width:640px){h2{font-size:20px}.funnel .r{grid-template-columns:48px 1fr 92px;font-size:13px}.dr{grid-template-columns:minmax(0,1.4fr) 1fr 56px}}
+</style></head><body>
+<header><div><div class="brand">DIZCO · CONTENT REPORT</div><h1>Lean Lab — Performa Konten</h1></div><a href="index.html">← Beranda</a></header>
+<div class="dummy" id="dummy" hidden>Data contoh (dummy) untuk gambaran format laporan.</div>
+<nav><a href="#ringkasan">Ringkasan</a><a href="#brief">Progress brief</a><a href="#funnel">Porsi funnel</a><a href="#pola">Pola yang menang</a><a href="#winning">Konten winning</a><a href="#semua">Semua konten</a><a href="#insight">Insight</a></nav>
+<main id="app"></main>
+<script>
+const D = {"brand": "Lean Lab", "asof": "27 September 2026", "sheet": "https://docs.google.com/spreadsheets/d/1Fl9SVBu2_kQBGT8vG4G19fGjBazUO6wFa7pGOpmNp5c/edit", "dummy": true, "camps": {"TikTok GMV Max / Spark Ads": {"metric": "Purchase", "kpi": 17000.0, "minr": 5.0, "days": 14.0}, "Meta CPAS → Shopee": {"metric": "Purchase", "kpi": 25000.0, "minr": 5.0, "days": 7.0}, "Meta LP → Shopee": {"metric": "Add to Cart", "kpi": 6000.0, "minr": 20.0, "days": 7.0}, "Shopee Video / Live (organik)": {"metric": "-", "kpi": null, "minr": null, "days": null}, "Affiliate kreator (organik)": {"metric": "-", "kpi": null, "minr": null, "days": null}, "Organik sosmed": {"metric": "-", "kpi": null, "minr": null, "days": null}}, "rows": [{"code": "BR-01", "date": "1 September 2026", "dshort": "1 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub Triple Mix x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A1 · Meal prep mingguan", "template": "Rutinitas / Meal Prep", "funnel": "TOFU", "hookType": "How To", "hook": "Stok lauk ayam seminggu beres dalam 30 menit, tiap wadah beda rasa.", "talent": "@jessicaalicias", "link": "https://drive.google.com/…/BR-01", "spend": 2400000.0, "result": 168.0, "metric": "Purchase", "cpr": 14285.71429, "status": "Winning", "note": "Hasil ditunjukkan di 3 detik pertama + 3 rasa terlihat jelas. Duplikasi ke 2 kreator ibu lain."}, {"code": "BR-01b", "date": "3 September 2026", "dshort": "3 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub Triple Mix x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A4 · Satu paket banyak menu", "template": "Rutinitas / Meal Prep", "funnel": "TOFU", "hookType": "Positive Spin", "hook": "Satu paket, tiga menu beda tiap hari.", "talent": "@shashefamily", "link": "https://drive.google.com/…/BR-01b", "spend": 1500000.0, "result": 71.0, "metric": "Purchase", "cpr": 21126.76056, "status": "Mediocre", "note": "Dibuka dengan kemasan, bukan hasil masakan. Retensi 3 detik rendah."}, {"code": "BR-02", "date": "2 September 2026", "dshort": "2 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Teriyaki", "persona": "P3 · Home cook resep ala resto", "angle": "A2 · Resep ala resto di rumah", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "Positive Spin", "hook": "Beef bowl ala resto ini cuma pakai satu bumbu.", "talent": "@ucipalupi", "link": "https://drive.google.com/…/BR-02", "spend": 1800000.0, "result": 120.0, "metric": "Purchase", "cpr": 15000, "status": "Winning", "note": "Close-up hasil + satu menu konkret. Pola ini dipakai lagi di BR-04."}, {"code": "BR-02b", "date": "4 September 2026", "dshort": "4 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Teriyaki", "persona": "P3 · Home cook resep ala resto", "angle": "A2 · Resep ala resto di rumah", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "Question", "hook": "Pernah bikin teriyaki tapi rasanya kurang nendang?", "talent": "@nengsepti", "link": "https://drive.google.com/…/BR-02b", "spend": 900000.0, "result": 38.0, "metric": "Purchase", "cpr": 23684.21053, "status": "Mediocre", "note": "Hook pertanyaan kurang kuat dibanding langsung tunjukkan hasil."}, {"code": "BR-03", "date": "5 September 2026", "dshort": "5 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub x1 Teriyaki", "persona": "P3 · Home cook resep ala resto", "angle": "A2 · Resep ala resto di rumah", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "How To", "hook": "Ayam teriyaki 15 menit, tanpa racik saus sendiri.", "talent": "Tim internal", "link": "https://drive.google.com/…/BR-03", "spend": 1200000.0, "result": 56.0, "metric": "Purchase", "cpr": 21428.57143, "status": "Winning", "note": "Versi 1:1 untuk CPAS, durasi 18 detik. CPP di bawah KPI."}, {"code": "BR-03b", "date": "7 September 2026", "dshort": "7 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub x1 Teriyaki", "persona": "P3 · Home cook resep ala resto", "angle": "A2 · Resep ala resto di rumah", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "Negative Spin", "hook": "Jangan beli saus teriyaki botolan sebelum lihat ini.", "talent": "Tim internal", "link": "https://drive.google.com/…/BR-03b", "spend": 700000.0, "result": 12.0, "metric": "Purchase", "cpr": 58333.33333, "status": "Mediocre", "note": ""}, {"code": "BR-04", "date": "3 September 2026", "dshort": "3 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Fried Chicken", "persona": "P3 · Home cook resep ala resto", "angle": "A5 · Rahasia bumbu ayam goreng", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "Fakta Mengejutkan", "hook": "Ternyata ini rahasia bumbu ayam goreng ala resto cepat saji.", "talent": "@putriizzaty", "link": "https://drive.google.com/…/BR-04", "spend": 2000000.0, "result": 142.0, "metric": "Purchase", "cpr": 14084.50704, "status": "Winning", "note": "Fried Chicken menang tipis vs Teriyaki (BR-02) di struktur yang sama."}, {"code": "BR-05", "date": "4 September 2026", "dshort": "4 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Original Blend", "persona": "P2 · Jaga makan / tinggi protein", "angle": "A3 · Jaga makan tetap enak", "template": "Talking Head + B-Roll / Tutorial", "funnel": "TOFU", "hookType": "Call Out", "hook": "Buat kamu yang lagi jaga makan tapi bosan dada ayam rebus.", "talent": "@daddygeeeeee", "link": "https://drive.google.com/…/BR-05", "spend": 1600000.0, "result": 88.0, "metric": "Purchase", "cpr": 18181.81818, "status": "Mediocre", "note": "CTR tinggi tapi biaya per purchase sedikit di atas KPI. Coba ganti produk ke Triple Mix."}, {"code": "BR-05b", "date": "6 September 2026", "dshort": "6 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Original Blend", "persona": "P2 · Jaga makan / tinggi protein", "angle": "A3 · Jaga makan tetap enak", "template": "Talking Head + B-Roll / Tutorial", "funnel": "TOFU", "hookType": "Experience", "hook": "Sebulan diet, ini bumbu yang bikin aku nggak bosan.", "talent": "@panderismad", "link": "https://drive.google.com/…/BR-05b", "spend": 1000000.0, "result": 0.0, "metric": "Purchase", "cpr": null, "status": "Bad", "note": "Hook tidak menyebut masakan; klaim 'sebulan diet' melemahkan kepercayaan."}, {"code": "BR-06", "date": "7 September 2026", "dshort": "7 Sep", "camp": "Meta CPAS → Shopee", "sku": "Matcha Latte", "persona": "P4 · Pekerja butuh minuman kafe", "angle": "A6 · Minuman kafe tanpa ribet", "template": "POV / Skit", "funnel": "TOFU", "hookType": "Call Out", "hook": "POV: jam 3 sore, butuh matcha tapi males keluar kantor.", "talent": "@senjaanjani", "link": "https://drive.google.com/…/BR-06", "spend": 800000.0, "result": 19.0, "metric": "Purchase", "cpr": 42105.26316, "status": "Mediocre", "note": ""}, {"code": "BR-06b", "date": "15 September 2026", "dshort": "15 Sep", "camp": "Meta LP → Shopee", "sku": "Matcha Latte", "persona": "P4 · Pekerja butuh minuman kafe", "angle": "A6 · Minuman kafe tanpa ribet", "template": "POV / Skit", "funnel": "TOFU", "hookType": "Positive Spin", "hook": "Matcha ala kafe, cuma seduh 30 detik.", "talent": "@senjaanjani", "link": "https://drive.google.com/…/BR-06b", "spend": 400000.0, "result": 85.0, "metric": "Add to Cart", "cpr": 4705.882353, "status": "Winning", "note": "Untuk traffic ke Shopee, biaya per ATC di bawah KPI."}, {"code": "BR-01c", "date": "17 September 2026", "dshort": "17 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub Triple Mix x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A1 · Meal prep mingguan", "template": "Rutinitas / Meal Prep", "funnel": "TOFU", "hookType": "How To", "hook": "Meal prep 5 menu ayam, 3 rasa, 1 jam.", "talent": "@mama.rina", "link": "https://drive.google.com/…/BR-01c", "spend": 600000.0, "result": 31.0, "metric": "Purchase", "cpr": 19354.83871, "status": "Menunggu", "note": ""}, {"code": "BR-04b", "date": "21 September 2026", "dshort": "21 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub x1 Fried Chicken", "persona": "P3 · Home cook resep ala resto", "angle": "A5 · Rahasia bumbu ayam goreng", "template": "Product Demo / Resep", "funnel": "MOFU", "hookType": "Fakta Mengejutkan", "hook": "Rahasia ayam goreng renyah ala resto, cuma satu bumbu.", "talent": "Tim internal", "link": "https://drive.google.com/…/BR-04b", "spend": 300000.0, "result": 9.0, "metric": "Purchase", "cpr": 33333.33333, "status": "Menunggu", "note": ""}, {"code": "BR-07", "date": "5 September 2026", "dshort": "5 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub Triple Mix x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A4 · Satu paket banyak menu", "template": "Static Promo / Offer", "funnel": "BOFU", "hookType": "Social Proof", "hook": "Paket 3 rasa paling laris di toko kami — cek promonya minggu ini.", "talent": "", "link": "https://drive.google.com/…/BR-07", "spend": 900000.0, "result": 48.0, "metric": "Purchase", "cpr": 18750, "status": "Winning", "note": "Visual masakan jadi + badge promo. CPP di bawah KPI; pakai sebagai materi retargeting utama."}, {"code": "BR-07b", "date": "7 September 2026", "dshort": "7 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub Triple Mix x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A4 · Satu paket banyak menu", "template": "Static Promo / Offer", "funnel": "BOFU", "hookType": "Positive Spin", "hook": "Hemat 20% untuk paket 3 rasa.", "talent": "", "link": "https://drive.google.com/…/BR-07b", "spend": 600000.0, "result": 14.0, "metric": "Purchase", "cpr": 42857.14286, "status": "Mediocre", "note": "Hanya foto kemasan tanpa masakan jadi; CPP hampir 2× KPI."}, {"code": "BR-07c", "date": "9 September 2026", "dshort": "9 Sep", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x2", "persona": "P3 · Home cook resep ala resto", "angle": "A2 · Resep ala resto di rumah", "template": "Static Promo / Offer", "funnel": "BOFU", "hookType": "Negative Spin", "hook": "Jangan checkout satuan kalau paket 2 lebih hemat.", "talent": "", "link": "https://drive.google.com/…/BR-07c", "spend": 500000.0, "result": 0.0, "metric": "Purchase", "cpr": null, "status": "Bad", "note": "Statis promo di TikTok tidak jalan; format BOFU lebih cocok di Meta CPAS (retargeting)."}, {"code": "BR-07d", "date": "18 September 2026", "dshort": "18 Sep", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub Sachet 10g x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A1 · Meal prep mingguan", "template": "Static Promo / Offer", "funnel": "BOFU", "hookType": "Call Out", "hook": "Mau coba 3 rasa dulu? Sachet cuma Rp13 ribu.", "talent": "", "link": "https://drive.google.com/…/BR-07d", "spend": 200000.0, "result": 6.0, "metric": "Purchase", "cpr": 33333.33333, "status": "Menunggu", "note": ""}, {"code": "LB-01", "date": "22 September 2026", "dshort": "22 Sep", "camp": "Shopee Video / Live (organik)", "sku": "Dry Rub Sachet 10g x3", "persona": "P1 · Ibu meal prep keluarga", "angle": "A1 · Meal prep mingguan", "template": "Behind the Scene / Unboxing", "funnel": "TOFU", "hookType": "Positive Spin", "hook": "Packing 300 sachet untuk live malam ini!", "talent": "Tim internal", "link": "https://drive.google.com/…/LB-01", "spend": null, "result": null, "metric": "-", "cpr": null, "status": "", "note": "Konten bebas (di luar brief)."}], "briefs": [{"code": "BR-01", "status": "Aktif", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub Triple Mix x3", "template": "Rutinitas / Meal Prep", "quota": 3.0, "uploaded": 3, "winning": 1, "deadline": "9 Oktober 2026"}, {"code": "BR-02", "status": "Aktif", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Teriyaki", "template": "Product Demo / Resep", "quota": 3.0, "uploaded": 2, "winning": 1, "deadline": "9 Oktober 2026"}, {"code": "BR-03", "status": "Aktif", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub x1 Teriyaki", "template": "Product Demo / Resep", "quota": 2.0, "uploaded": 2, "winning": 1, "deadline": "9 Oktober 2026"}, {"code": "BR-04", "status": "Aktif", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Fried Chicken", "template": "Product Demo / Resep", "quota": 3.0, "uploaded": 2, "winning": 1, "deadline": "16 Oktober 2026"}, {"code": "BR-05", "status": "Aktif", "camp": "TikTok GMV Max / Spark Ads", "sku": "Dry Rub x1 Original Blend", "template": "Talking Head + B-Roll / Tutorial", "quota": 3.0, "uploaded": 2, "winning": 0, "deadline": "16 Oktober 2026"}, {"code": "BR-06", "status": "Aktif", "camp": "Meta CPAS → Shopee", "sku": "Matcha Latte", "template": "POV / Skit", "quota": 2.0, "uploaded": 2, "winning": 1, "deadline": "16 Oktober 2026"}, {"code": "BR-07", "status": "Aktif", "camp": "Meta CPAS → Shopee", "sku": "Dry Rub Triple Mix x3", "template": "Static Promo / Offer", "quota": 4.0, "uploaded": 4, "winning": 1, "deadline": "9 Oktober 2026"}], "summary": {"total": 18, "judged": 14, "win": 6, "med": 6, "bad": 2, "wait": 3, "other": 1, "spend": 17400000.0}, "funnel": {"count": {"TOFU": 8, "MOFU": 6, "BOFU": 4}, "target": {"TOFU": 0.5, "MOFU": 0.4, "BOFU": 0.1}}, "dims": {"Template": [{"name": "Product Demo / Resep", "n": 5, "w": 3, "r": 0.6}, {"name": "Rutinitas / Meal Prep", "n": 2, "w": 1, "r": 0.5}, {"name": "POV / Skit", "n": 2, "w": 1, "r": 0.5}, {"name": "Static Promo / Offer", "n": 3, "w": 1, "r": 0.3333333333333333}, {"name": "Talking Head + B-Roll / Tutorial", "n": 2, "w": 0, "r": 0.0}], "Jenis hook": [{"name": "How To", "n": 2, "w": 2, "r": 1.0}, {"name": "Fakta Mengejutkan", "n": 1, "w": 1, "r": 1.0}, {"name": "Social Proof", "n": 1, "w": 1, "r": 1.0}, {"name": "Positive Spin", "n": 4, "w": 2, "r": 0.5}, {"name": "Negative Spin", "n": 2, "w": 0, "r": 0.0}, {"name": "Call Out", "n": 2, "w": 0, "r": 0.0}, {"name": "Question", "n": 1, "w": 0, "r": 0.0}, {"name": "Experience", "n": 1, "w": 0, "r": 0.0}], "Persona": [{"name": "P3 · Home cook resep ala resto", "n": 6, "w": 3, "r": 0.5}, {"name": "P1 · Ibu meal prep keluarga", "n": 4, "w": 2, "r": 0.5}, {"name": "P4 · Pekerja butuh minuman kafe", "n": 2, "w": 1, "r": 0.5}, {"name": "P2 · Jaga makan / tinggi protein", "n": 2, "w": 0, "r": 0.0}], "Angle": [{"name": "A1 · Meal prep mingguan", "n": 1, "w": 1, "r": 1.0}, {"name": "A5 · Rahasia bumbu ayam goreng", "n": 1, "w": 1, "r": 1.0}, {"name": "A6 · Minuman kafe tanpa ribet", "n": 2, "w": 1, "r": 0.5}, {"name": "A2 · Resep ala resto di rumah", "n": 5, "w": 2, "r": 0.4}, {"name": "A4 · Satu paket banyak menu", "n": 3, "w": 1, "r": 0.3333333333333333}, {"name": "A3 · Jaga makan tetap enak", "n": 2, "w": 0, "r": 0.0}]}, "insights": ["Template <b>Product Demo / Resep</b> paling konsisten: 3 dari 5 konten menang (60%).", "Hook <b>How To</b> memberi win rate tertinggi (2/2).", "Persona <b>P2 · Jaga makan / tinggi protein</b> belum menghasilkan konten menang (0/2): perlu angle atau produk berbeda.", "Porsi <b>BOFU</b> 22% vs target 10%: terlalu banyak, seimbangkan di brief berikutnya."], "next": ["Perbanyak variasi dari konten Winning (BR-01, BR-02, BR-03, BR-04, BR-06b, BR-07) — pola sama, kreator atau hook berbeda.", "Hentikan dan jangan ulangi pola konten Bad (BR-05b, BR-07c).", "3 konten masih dalam masa penilaian (BR-01c, BR-04b, BR-07d).", "Brief yang kontennya belum lengkap: BR-02, BR-04, BR-05."]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rp = v => v == null || v === "" ? "–" : "Rp" + Math.round(v).toLocaleString("id-ID");
+const num = v => v == null || v === "" ? "–" : Math.round(v).toLocaleString("id-ID");
+const pct = v => Math.round(v * 100) + "%";
+const jt = v => v >= 1e9 ? "Rp" + (v / 1e9).toFixed(2).replace(".", ",") + " M" : "Rp" + (v / 1e6).toFixed(1).replace(".", ",") + " jt";
+const S = D.summary;
+if (D.dummy) $("#dummy").hidden = false;
+
+const stColors = [["Winning", S.win, "#1E7B34", "#fff"], ["Mediocre", S.med, "#F2C94C", "#5b4a00"], ["Bad", S.bad, "#C0392B", "#fff"], ["Menunggu", S.wait, "#c9ced8", "#1F2A44"]];
+const stTotal = stColors.reduce((a, s) => a + s[1], 0) || 1;
+const kpiOf = x => (D.camps[x.camp] || {}).kpi;
+
+function sumSec(){ return `<section id="ringkasan"><div class="top"><div class="asof">Data per ${esc(D.asof)} · sumber: Content Tracker</div>
+  <a class="sheet" href="${esc(D.sheet)}" target="_blank" rel="noopener">Buka Content Tracker ↗</a></div>
+  <div class="kicker">Ringkasan</div><h2>Kondisi konten saat ini</h2>
+  <div class="tiles">
+    <div class="card tile"><div class="l">Konten diupload</div><div class="v">${S.total}</div><div class="s">${D.briefs.length} brief</div></div>
+    <div class="card tile"><div class="l">Sudah dinilai</div><div class="v">${S.judged}</div><div class="s">${S.wait} menunggu penilaian</div></div>
+    <div class="card tile"><div class="l">Winning</div><div class="v" style="color:var(--win)">${S.win}</div><div class="s">win rate ${S.judged ? pct(S.win / S.judged) : "–"}</div></div>
+    <div class="card tile"><div class="l">Total spend iklan</div><div class="v">${jt(S.spend)}</div><div class="s">seluruh konten</div></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="kicker">Status konten</div>
+    <div class="stack">${stColors.filter(s => s[1]).map(s => `<div style="width:${s[1] / stTotal * 100}%;background:${s[2]};color:${s[3]}">${s[0]} ${s[1]}</div>`).join("")}</div>
+    <div class="legend"><span>Winning: hasil ≥ minimum & biaya per hasil ≤ KPI</span><span>Mediocre: ada hasil, belum lolos KPI</span><span>Bad: tanpa hasil</span><span>Menunggu: belum lewat masa penilaian</span></div></div></section>`; }
+
+function briefSec(){ return `<section id="brief"><div class="kicker">Progress brief</div><h2>Brief & konten yang sudah masuk</h2>
+  <p class="sub">Jumlah konten terupload dibanding target per brief, beserta konten yang sudah menang.</p>
+  <div class="briefs">${D.briefs.map(b => `<div class="card bf"><div class="code">${esc(b.code)}</div><div><div class="t">${esc(b.sku)}</div><div class="m">${esc(b.camp)} · ${esc(b.template)}</div></div>
+    <div class="bar"><i style="width:${Math.min(100, b.quota ? b.uploaded / b.quota * 100 : 0)}%"></i></div>
+    <div class="f"><span>${b.uploaded} / ${b.quota} konten · deadline ${esc(b.deadline)}</span><span>${b.winning ? `<span class="st Winning">${b.winning} winning</span>` : ""}</span></div></div>`).join("")}</div></section>`; }
+
+function funnelSec(){ const c = D.funnel.count, t = D.funnel.target, tot = (c.TOFU + c.MOFU + c.BOFU) || 1;
+  return `<section id="funnel"><div class="kicker">Porsi funnel</div><h2>Keseimbangan TOFU · MOFU · BOFU</h2>
+  <p class="sub">Porsi konten per tahap funnel dibanding target. Garis oranye = target.</p>
+  <div class="card funnel">${["TOFU","MOFU","BOFU"].map(f => { const p = c[f] / tot, off = Math.abs(p - t[f]) >= .1;
+    return `<div class="r"><b>${f}</b><div class="tr"><div class="fi" style="width:${p * 100}%"></div><div class="tg" style="left:calc(${t[f] * 100}% - 1px)"></div></div>
+    <div class="val ${off ? "off" : ""}">${c[f]} konten · ${pct(p)}<br><small style="font-weight:500;color:var(--muted)">target ${pct(t[f])}</small></div></div>`; }).join("")}</div></section>`; }
+
+function dimSec(){ return `<section id="pola"><div class="kicker">Pola yang menang</div><h2>Konten seperti apa yang menang?</h2>
+  <p class="sub">Win rate = konten Winning ÷ konten yang sudah dinilai. Hijau = win rate ≥ 30%.</p>
+  <div class="dims">${Object.entries(D.dims).map(([k, list]) => `<div class="card dim"><h3>${esc(k)}</h3>${list.map(d =>
+    `<div class="dr ${d.r >= .3 ? "hi" : ""}"><div class="n" title="${esc(d.name)}">${esc(d.name)}</div><div class="tr"><div class="fi" style="width:${Math.max(3, d.r * 100)}%"></div></div>
+     <div class="p">${pct(d.r)} <small>${d.w}/${d.n}</small></div></div>`).join("")}</div>`).join("")}</div></section>`; }
+
+function winSec(){ const w = D.rows.filter(x => x.status === "Winning");
+  return `<section id="winning"><div class="kicker">Konten winning</div><h2>${w.length} konten yang menang</h2>
+  <p class="sub">Dasar untuk brief berikutnya: pola ini yang diperbanyak.</p>
+  <div class="wins">${w.map(x => `<div class="card win"><span class="code">${esc(x.code)}</span> <span class="st Winning">Winning</span>
+    <h4>${esc(x.sku)}</h4><div class="m" style="font-size:12px;color:var(--muted)">${esc(x.camp)} · ${esc(x.template)} · ${esc(x.hookType)}</div>
+    <div class="q">“${esc(x.hook)}”</div>
+    <div class="k"><span>Hasil</span><span>${num(x.result)} ${esc(x.metric)}</span></div>
+    <div class="k"><span>Biaya per hasil</span><span><b>${rp(x.cpr)}</b> <small style="color:var(--muted)">KPI ${rp(kpiOf(x))}</small></span></div>
+    ${x.note ? `<p class="why"><b style="color:var(--navy)">Kenapa menang:</b> ${esc(x.note)}</p>` : ""}
+    ${x.link && x.link.startsWith("http") && !x.link.includes("…") ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">Lihat konten ↗</a>` : ""}</div>`).join("")}</div></section>`; }
+
+let fSt = "Semua", fCamp = "Semua";
+function allSec(){ const camps = ["Semua", ...new Set(D.rows.map(x => x.camp))];
+  return `<section id="semua"><div class="kicker">Semua konten</div><h2>Daftar konten</h2>
+  <div class="filters">${["Semua","Winning","Mediocre","Bad","Menunggu"].map(s => `<button data-st="${s}" class="${s === fSt ? "on" : ""}">${s}</button>`).join("")}
+    <select id="fc">${camps.map(c => `<option>${esc(c)}</option>`).join("")}</select></div>
+  <div class="tbl"><table><thead><tr><th>Kode</th><th>Upload</th><th>Campaign</th><th>Produk</th><th>Template</th><th>Hook</th><th>Spend</th><th>Hasil</th><th>Biaya/hasil</th><th>Status</th></tr></thead>
+  <tbody id="tb"></tbody></table></div></section>`; }
+function fillTable(){ $("#tb").innerHTML = D.rows.filter(x => (fSt === "Semua" || x.status === fSt) && (fCamp === "Semua" || x.camp === fCamp)).map(x =>
+  `<tr><td style="white-space:nowrap"><b>${esc(x.code)}</b></td><td style="white-space:nowrap">${esc(x.dshort)}</td><td>${esc(x.camp)}</td><td>${esc(x.sku)}</td><td>${esc(x.template)}</td><td>${esc(x.hookType)}</td>
+   <td class="num">${rp(x.spend)}</td><td class="num">${num(x.result)} <small style="color:var(--muted)">${esc(x.metric === "-" ? "" : x.metric)}</small></td>
+   <td class="num">${rp(x.cpr)}</td><td>${x.status ? `<span class="st ${esc(x.status)}">${esc(x.status)}</span>` : `<span style="color:var(--muted)">organik</span>`}</td></tr>`).join("")
+  || `<tr><td colspan="10" style="text-align:center;color:var(--muted)">Tidak ada konten</td></tr>`; }
+
+function insSec(){ return `<section id="insight"><div class="kicker">Insight</div><h2>Insight & langkah berikutnya</h2>
+  <div class="ins"><div class="card"><h3>Yang terlihat dari data</h3><ul>${D.insights.map(i => `<li>${i}</li>`).join("")}</ul></div>
+  <div class="card"><h3>Langkah berikutnya</h3><ul>${D.next.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div></div></section>`; }
+
+$("#app").innerHTML = sumSec() + briefSec() + funnelSec() + dimSec() + winSec() + allSec() + insSec();
+fillTable();
+document.querySelectorAll(".filters button").forEach(b => b.onclick = () => { fSt = b.dataset.st; document.querySelectorAll(".filters button").forEach(x => x.classList.toggle("on", x === b)); fillTable(); });
+$("#fc").onchange = e => { fCamp = e.target.value; fillTable(); };
+</script></body></html>
